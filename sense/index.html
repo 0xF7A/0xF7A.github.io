@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sense | ImGui Roblox External</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Override specific variables for this page if needed */
+        :root {
+            --primary-color: #007AFF;
+            /* Blue */
+            --secondary-color: #FFD700;
+            /* Yellow */
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: #000;
+            font-weight: 700;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 122, 255, 0.5);
+        }
+    </style>
+</head>
+
+<body class="sense-page">
+    <div class="damascus-overlay"></div>
+    <div class="fov-overlay" id="fov-overlay"></div>
+    <div class="container">
+        <header>
+            <div class="logo" style="color: var(--secondary-color);">Sense <span
+                    style="font-size: 0.8rem; color: #fff; background: var(--primary-color); padding: 2px 6px; border-radius: 4px; vertical-align: middle;">BETA</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/lander/">Back to Projects</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="hero">
+            <h1 class="animate-entry glitch-text" data-text="Experience Sense">Experience Sense</h1>
+            <p class="animate-entry delay-100">The next generation external cheat for Roblox.</p>
+            <p class="animate-entry delay-200">Powered by ImGui for seamless performance and style.</p>
+
+            <!-- ImGui Replica -->
+            <div class="imgui-window animate-entry delay-300" data-tilt>
+                <div class="imgui-titlebar">
+                    <span>Sense - Beta</span>
+                </div>
+                <div class="imgui-content">
+                    <label class="imgui-checkbox">
+                        <input type="checkbox" checked>
+                        <span class="checkmark"></span>
+                        Enable Aimbot
+                    </label>
+                    <label class="imgui-checkbox">
+                        <input type="checkbox" id="draw-fov-check">
+                        <span class="checkmark"></span>
+                        Draw FOV
+                    </label>
+
+                    <div class="imgui-slider-container">
+                        <div class="imgui-slider-label">
+                            <span>Smoothness</span>
+                            <span>4.5</span>
+                        </div>
+                        <input type="range" min="1" max="10" value="4.5" class="imgui-slider">
+                    </div>
+
+                    <div class="imgui-slider-container">
+                        <div class="imgui-slider-label">
+                            <span>Field of View</span>
+                            <span id="fov-value">100</span>
+                        </div>
+                        <input type="range" min="10" max="400" value="100" class="imgui-slider" id="fov-slider">
+                    </div>
+
+                    <div class="imgui-text">Status: <span style="color: #0f0;">Undetected</span></div>
+                    <div class="imgui-text" style="color: #ff4444; margin-top: 4px;">Warning: Kernel driver is unstable
+                        and may cause BSOD.</div>
+                </div>
+            </div>
+
+            <a href="https://github.com/0xF7A/sense" class="beta-btn animate-entry delay-400">Participate in Beta</a>
+
+            <div class="features animate-entry delay-300">
+                <div class="feature-item" data-tilt>
+                    <div class="feature-icon">⚡</div>
+                    <h3>Fast</h3>
+                    <p>Optimized for speed</p>
+                </div>
+                <div class="feature-item" data-tilt>
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Undetected</h3>
+                    <p>Advanced security</p>
+                </div>
+                <div class="feature-item" data-tilt>
+                    <div class="feature-icon">🎨</div>
+                    <h3>Customizable</h3>
+                    <p>Full ImGui support</p>
+                </div>
+            </div>
+
+            <!-- Pricing Section -->
+            <section class="pricing-section animate-entry delay-500">
+                <h2 class="section-title">Pricing</h2>
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <h3>Day</h3>
+                        <div class="price">TBA</div>
+                        <div class="period">24 Hours</div>
+                        <ul class="features-list">
+                            <li>Full Access</li>
+                            <li>24/7 Support</li>
+                        </ul>
+                    </div>
+                    <div class="pricing-card best-value">
+                        <h3>Week</h3>
+                        <div class="price">TBA</div>
+                        <div class="period">7 Days</div>
+                        <ul class="features-list">
+                            <li>Full Access</li>
+                            <li>24/7 Support</li>
+                            <li>Private Builds</li>
+                        </ul>
+                    </div>
+                    <div class="pricing-card">
+                        <h3>Month</h3>
+                        <div class="price">TBA</div>
+                        <div class="period">30 Days</div>
+                        <ul class="features-list">
+                            <li>Full Access</li>
+                            <li>24/7 Support</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FAQ Section -->
+            <section class="faq-section animate-entry delay-500">
+                <h2 class="section-title">FAQ</h2>
+                <div class="faq-item">
+                    <div class="faq-question">Is it undetected?</div>
+                    <div class="faq-answer">Yes, Sense uses advanced external methods to bypass detection.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">What OS is supported?</div>
+                    <div class="faq-answer">Windows 10 and Windows 11 (all versions).</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">How do I buy?</div>
+                    <div class="faq-answer">Join our Discord server to purchase via Ticket.</div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="../assets/js/gimmicks.js"></script>
+</body>
+
+</html>
