@@ -8,23 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     follower.classList.add('cursor-follower');
     document.body.appendChild(follower);
 
-    document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
 
-        // Follower delay
-        setTimeout(() => {
-            follower.style.left = e.clientX + 'px';
-            follower.style.top = e.clientY + 'px';
-        }, 80);
-
-        // FOV Overlay Follow
-        const fovOverlay = document.getElementById('fov-overlay');
-        if (fovOverlay && fovOverlay.classList.contains('fov-active')) {
-            fovOverlay.style.left = e.clientX + 'px';
-            fovOverlay.style.top = e.clientY + 'px';
-        }
-    });
 
     // Hover effects on interactively elements
     const interactiveElements = document.querySelectorAll('a, button, .project-card, .feature-item');
@@ -102,5 +86,132 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Initialize
         updateFov();
+    }
+    // === 5. Global Right Click Disable ===
+    document.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+    });
+
+    // === 6. Aimbot Logic (Sense Page) ===
+    const aimbotCheck = document.getElementById('aimbot-check');
+
+    let isRightClickHeld = false;
+    let currentTarget = null; // Store targeted element
+
+    // Track right click state
+    document.addEventListener('mousedown', (e) => {
+        if (e.button === 2) { // Right click
+            isRightClickHeld = true;
+            if (aimbotCheck && aimbotCheck.checked) {
+                // Initial snap
+                handleAimbot(e);
+            }
+        }
+        // Left click to interact with target
+        if (e.button === 0 && isRightClickHeld && currentTarget) {
+            e.preventDefault(); // Prevent clicking on empty space if cursor is virtually simulated
+            currentTarget.click(); // Programmatically click the target
+
+            // Visual feedback for click
+            const ripple = document.createElement('div');
+            ripple.style.position = 'fixed';
+            ripple.style.left = cursor.style.left;
+            ripple.style.top = cursor.style.top;
+            ripple.style.width = '20px';
+            ripple.style.height = '20px';
+            ripple.style.borderRadius = '50%';
+            ripple.style.background = 'rgba(255, 255, 255, 0.8)';
+            ripple.style.transform = 'translate(-50%, -50%)';
+            ripple.style.pointerEvents = 'none';
+            ripple.style.zIndex = '10000';
+            ripple.style.transition = 'all 0.3s ease';
+            document.body.appendChild(ripple);
+
+            requestAnimationFrame(() => {
+                ripple.style.transform = 'translate(-50%, -50%) scale(2)';
+                ripple.style.opacity = '0';
+            });
+
+            setTimeout(() => ripple.remove(), 300);
+        }
+    });
+
+    document.addEventListener('mouseup', (e) => {
+        if (e.button === 2) {
+            isRightClickHeld = false;
+            currentTarget = null;
+            if (fovOverlay) fovOverlay.classList.remove('fov-locked');
+        }
+    });
+
+    // Override main mousemove to handle aimbot
+    document.addEventListener('mousemove', (e) => {
+        // If aimbot is active, let the specific logic handle position
+        if (isRightClickHeld && aimbotCheck && aimbotCheck.checked) {
+            handleAimbot(e);
+        } else {
+            // Normal behavior
+            updateCursor(e.clientX, e.clientY);
+            currentTarget = null; // Reset if not locked
+            if (fovOverlay) fovOverlay.classList.remove('fov-locked');
+        }
+
+        // FOV Overlay Follow
+        if (fovOverlay && fovOverlay.classList.contains('fov-active')) {
+            fovOverlay.style.left = e.clientX + 'px';
+            fovOverlay.style.top = e.clientY + 'px';
+        }
+    });
+
+    function updateCursor(x, y) {
+        cursor.style.left = x + 'px';
+        cursor.style.top = y + 'px';
+
+        // Follower delay
+        setTimeout(() => {
+            follower.style.left = x + 'px';
+            follower.style.top = y + 'px';
+        }, 80);
+    }
+
+    // Consolidated Aimbot Handler
+    function handleAimbot(e) {
+        // Find nearest interactive element
+        const elements = document.querySelectorAll('a, button, .project-card, .feature-item, input, label');
+        const fovSlider = document.getElementById('fov-slider');
+        const fovRadius = fovSlider ? parseInt(fovSlider.value) / 2 : Infinity; // Half of diameter
+
+        let closestEl = null;
+        let minDist = Infinity;
+
+        elements.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            const elX = rect.left + rect.width / 2;
+            const elY = rect.top + rect.height / 2;
+
+            const dist = Math.hypot(e.clientX - elX, e.clientY - elY);
+
+            if (dist < minDist) {
+                minDist = dist;
+                closestEl = { el, x: elX, y: elY };
+            }
+        });
+
+        // Check against FOV Radius
+        if (closestEl && minDist <= fovRadius) {
+            updateCursor(closestEl.x, closestEl.y);
+            cursor.classList.add('hover-active');
+            follower.classList.add('hover-active');
+            currentTarget = closestEl.el;
+
+            // Turn FOV Yellow
+            if (fovOverlay) fovOverlay.classList.add('fov-locked');
+
+        } else {
+            // Fallback to normal if outside FOV
+            updateCursor(e.clientX, e.clientY);
+            currentTarget = null;
+            if (fovOverlay) fovOverlay.classList.remove('fov-locked');
+        }
     }
 });
