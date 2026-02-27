@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HYPR LAB</title>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+
+<body>
+
+    <!-- Background -->
+    <canvas id="topo-canvas"></canvas>
+    <div class="scanlines"></div>
+    <div class="corner tl"></div>
+    <div class="corner tr"></div>
+    <div class="corner bl"></div>
+    <div class="corner br"></div>
+    <div id="ticker"></div>
+
+    <!-- SCRIPT POPUP MODAL -->
+    <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+        <div class="modal" id="modal">
+            <div class="modal-header">
+                <div class="modal-header-left">
+                    <div class="modal-tag" id="modal-tag">Category</div>
+                    <div class="modal-title" id="modal-title">Script Name</div>
+                </div>
+                <button class="modal-close" onclick="closeModalDirect()">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-desc" id="modal-desc"></div>
+                <div class="modal-code-header">
+                    <div class="modal-code-label">Luau Source</div>
+                    <button class="modal-copy-btn" id="copy-btn" onclick="copyScript()">Copy Script</button>
+                </div>
+                <div class="modal-code" id="modal-code"></div>
+            </div>
+            <div class="modal-footer" id="modal-footer"></div>
+        </div>
+    </div>
+
+    <!-- Nav -->
+    <nav id="nav">
+        <div class="nav-logo">HYPR<span>.</span></div>
+        <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#scripts">Scripts</a></li>
+            <li><a href="#obfuscator">Obfuscator</a></li>
+        </ul>
+        <div class="nav-badge">v2.4 Beta</div>
+        <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div class="nav-mobile-menu" id="mobile-menu">
+        <a href="#hero" onclick="closeMenu()">Home</a>
+        <a href="#scripts" onclick="closeMenu()">Scripts</a>
+        <a href="#obfuscator" onclick="closeMenu()">Obfuscator</a>
+        <div class="mobile-badge">v2.4 Beta</div>
+    </div>
+
+    <!-- ── HERO ── -->
+    <section id="hero">
+        <div class="hero-eyebrow">Roblox Exploits</div>
+        <h1 class="hero-title">
+            HYPR<span class="accent"> LAB</span>
+            <span class="sub">Luau Scripts &amp; Tools</span>
+        </h1>
+        <p class="hero-desc">
+            Premium autofarms, ESP, utility scripts and a built-in Luau obfuscator.
+            Paste. Obfuscate. Execute. Built for speed, designed to stay undetected.
+        </p>
+        <div class="hero-actions">
+            <a href="#scripts" class="btn btn-primary">Browse Scripts</a>
+            <a href="#obfuscator" class="btn btn-ghost">Obfuscator →</a>
+        </div>
+        <div class="hero-scroll">Scroll to explore</div>
+    </section>
+
+    <!-- ── SCRIPTS ── -->
+    <section id="scripts">
+        <div class="section-header reveal">
+            <div class="section-label">01</div>
+            <div class="section-title">Scripts</div>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="cards-grid" id="cards-grid">
+            <!-- Cards will be dynamically injected here using script.js -->
+        </div>
+    </section>
+
+    <!-- ── OBFUSCATOR ── -->
+    <section id="obfuscator">
+        <div class="section-header reveal">
+            <div class="section-label">02</div>
+            <div class="section-title">Luau Obfuscator</div>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="obf-layout reveal">
+
+            <!-- Options rows -->
+            <div class="obf-controls">
+                <div class="obf-option checked" data-key="rename" onclick="this.classList.toggle('checked')">
+                    <div class="obf-checkbox"></div>
+                    <div class="obf-option-label">Variable Rename</div>
+                </div>
+                <div class="obf-option checked" data-key="strings" onclick="this.classList.toggle('checked')">
+                    <div class="obf-checkbox"></div>
+                    <div class="obf-option-label">String Encode</div>
+                </div>
+                <div class="obf-option checked" data-key="flow" onclick="this.classList.toggle('checked')">
+                    <div class="obf-checkbox"></div>
+                    <div class="obf-option-label">Control Flow</div>
+                </div>
+                <div class="obf-option" data-key="garbage" onclick="this.classList.toggle('checked')">
+                    <div class="obf-checkbox"></div>
+                    <div class="obf-option-label">Garbage Insert</div>
+                </div>
+                <div class="obf-option" data-key="numbers" onclick="this.classList.toggle('checked')">
+                    <div class="obf-checkbox"></div>
+                    <div class="obf-option-label">Number Encode</div>
+                </div>
+                <div class="obf-option" data-key="b64" onclick="this.classList.toggle('checked')">
+                    <div class="obf-checkbox"></div>
+                    <div class="obf-option-label">Base64 Wrap</div>
+                </div>
+                <div class="obf-option" data-key="comments" onclick="this.classList.toggle('checked')">
+                    <div class="obf-checkbox"></div>
+                    <div class="obf-option-label">Strip Comments</div>
+                </div>
+                <div class="obf-option" data-key="whitespace" onclick="this.classList.toggle('checked')">
+                    <div class="obf-checkbox"></div>
+                    <div class="obf-option-label">Minify Whitespace</div>
+                </div>
+                <div class="obf-option" data-key="constants" onclick="this.classList.toggle('checked')">
+                    <div class="obf-checkbox"></div>
+                    <div class="obf-option-label">Constant Fold</div>
+                </div>
+                <div class="obf-option" data-key="booleans" onclick="this.classList.toggle('checked')">
+                    <div class="obf-checkbox"></div>
+                    <div class="obf-option-label">Bool Obfuscate</div>
+                </div>
+                <div class="obf-option" data-key="multipass" onclick="this.classList.toggle('checked')">
+                    <div class="obf-checkbox"></div>
+                    <div class="obf-option-label">Multi-Pass ×3</div>
+                </div>
+                <button class="obf-run" onclick="obfuscate()">Run Obfuscator</button>
+            </div>
+
+            <!-- Input -->
+            <div class="obf-panel">
+                <div class="obf-panel-header">
+                    <div class="obf-panel-label">Input — Raw Script</div>
+                    <div style="font-size:9px;color:var(--dimmer);letter-spacing:0.15em" id="in-size">0 chars</div>
+                </div>
+                <textarea id="input-code"
+                    placeholder="-- Paste your Luau script here&#10;local player = game.Players.LocalPlayer&#10;local char = player.Character"
+                    oninput="updateSize()"></textarea>
+            </div>
+
+            <!-- Output -->
+            <div class="obf-panel">
+                <div class="obf-panel-header">
+                    <div class="obf-panel-label">Output — Obfuscated</div>
+                    <div class="obf-dot"></div>
+                </div>
+                <textarea id="output-code" readonly placeholder="-- Obfuscated output will appear here..."></textarea>
+            </div>
+
+            <!-- Stats -->
+            <div class="obf-stats">
+                <div class="obf-stat">Input size: <span id="stat-in">—</span></div>
+                <div class="obf-stat">Output size: <span id="stat-out">—</span></div>
+                <div class="obf-stat">Bloat: <span class="accent" id="stat-bloat">—</span></div>
+                <div class="obf-stat">Passes: <span id="stat-passes">3</span></div>
+                <div class="obf-stat" style="margin-left:auto;color:var(--dimmer)">HYPR LAB — Obfuscation Engine v2.4
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-logo">HYPR<span>.</span></div>
+        <div class="footer-copy">© 2025 Hypr Lab — For educational use only</div>
+    </footer>
+
+    <script src="../assets/obfuscate.js"></script>
+    <script src="../assets/script.js"></script>
+</body>
+
+</html>

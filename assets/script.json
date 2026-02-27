@@ -1,0 +1,100 @@
+{
+    "autofarm": {
+        "tag": "Farming",
+        "title": "AutoFarm",
+        "desc": "Fully automated coin, XP and item farming. Loop-based with auto-detect pathing. Set your target and let it run.",
+        "badges": [
+            [
+                "Popular",
+                "hot"
+            ],
+            [
+                "Universal",
+                ""
+            ]
+        ],
+        "blue": false,
+        "code": "print('hello world')"
+    },
+    "esp": {
+        "tag": "Visibility",
+        "title": "ESP Suite",
+        "desc": "Player ESP with distance, health bars, and nametags drawn with Drawing API. Toggle with RightShift.",
+        "badges": [
+            [
+                "New",
+                "new2"
+            ],
+            [
+                "Drawing API",
+                ""
+            ]
+        ],
+        "blue": true,
+        "code": "print('hello world')"
+    },
+    "speedfly": {
+        "tag": "Movement",
+        "title": "Speed / Fly",
+        "desc": "WalkSpeed boost and Fly toggle. Press E to fly, Shift+E to disable. Configurable speed multiplier.",
+        "badges": [
+            [
+                "Lightweight",
+                ""
+            ],
+            [
+                "v3",
+                "hot"
+            ]
+        ],
+        "blue": false,
+        "code": "print('hello world')"
+    },
+    "iy": {
+        "tag": "Utility",
+        "title": "Infinite Yield",
+        "desc": "Full admin command set. Use the prefix ; in chat. Commands: tp, bring, speed, fly, god, crash, and 200+ more.",
+        "badges": [
+            [
+                "200+ cmds",
+                ""
+            ],
+            [
+                "Updated",
+                "new2"
+            ]
+        ],
+        "blue": true,
+        "code": "print('hello world')"
+    },
+    "antikick": {
+        "tag": "Protection",
+        "title": "Anti-Kick",
+        "desc": "Hooks kick-related functions and RemoteEvents to silently suppress server-initiated kicks.",
+        "badges": [
+            [
+                "Hook-based",
+                ""
+            ]
+        ],
+        "blue": false,
+        "code": "print('hello world')"
+    },
+    "aimbot": {
+        "tag": "Combat",
+        "title": "Aimbot",
+        "desc": "Silent aim with FOV circle, smoothing, and target priority. Hold RightMouse to lock on. Press Z to toggle.",
+        "badges": [
+            [
+                "Hot",
+                "hot"
+            ],
+            [
+                "FOV Circle",
+                ""
+            ]
+        ],
+        "blue": true,
+        "code": "print('hello world')"
+    }
+}
