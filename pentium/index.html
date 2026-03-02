@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PENTIUM</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../assets/pentium.css">
+</head>
+
+<body>
+
+    <!-- BOOT SEQUENCE -->
+    <div id="boot-screen">
+        <div id="boot-container">
+            <div id="boot-text"></div>
+            <div class="boot-cursor"></div>
+        </div>
+    </div>
+
+    <!-- Background -->
+    <canvas id="matrix-canvas"></canvas>
+    <div class="grid-overlay"></div>
+    <div class="corner tl"></div>
+    <div class="corner tr"></div>
+    <div class="corner bl"></div>
+    <div class="corner br"></div>
+    <div id="ticker"></div>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+        <div class="modal" id="modal">
+            <div class="modal-header">
+                <div class="modal-header-left">
+                    <div class="modal-tag" id="modal-tag">Category</div>
+                    <div class="modal-title" id="modal-title">Script Name</div>
+                </div>
+                <button class="modal-close" onclick="closeModalDirect()">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-desc" id="modal-desc"></div>
+                <div class="modal-code-header">
+                    <div class="modal-code-label">Python Source</div>
+                    <button class="modal-copy-btn" id="copy-btn" onclick="copyScript()">Copy Script</button>
+                </div>
+                <div class="modal-code" id="modal-code"></div>
+            </div>
+            <div class="modal-footer" id="modal-footer"></div>
+        </div>
+    </div>
+
+    <!-- Nav -->
+    <nav id="nav">
+        <div class="nav-logo">PENT<span>IUM</span></div>
+        <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#scripts">Scripts</a></li>
+            <li><a href="#terminal">Terminal</a></li>
+        </ul>
+        <div class="nav-badge">v1.0 Dev</div>
+        <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div class="nav-mobile-menu" id="mobile-menu">
+        <a href="#hero" onclick="closeMenu()">Home</a>
+        <a href="#scripts" onclick="closeMenu()">Scripts</a>
+        <a href="#terminal" onclick="closeMenu()">Terminal</a>
+    </div>
+
+    <!-- ── HERO ── -->
+    <section id="hero">
+        <div class="hero-eyebrow">Python Backend Systems</div>
+        <h1 class="hero-title">
+            PENT<span class="accent">IUM</span>
+            <span class="sub">Python Scripts & Tools</span>
+        </h1>
+        <p class="hero-desc">
+            Production-ready Python scripts, async frameworks, and automation tools.
+            Build. Deploy. Scale. Engineered for performance, designed for developers.
+        </p>
+        <div class="hero-actions">
+            <a href="#scripts" class="btn btn-primary">Browse Scripts</a>
+            <a href="#terminal" class="btn btn-ghost">Live Terminal →</a>
+        </div>
+        <div class="hero-scroll">Scroll to explore</div>
+    </section>
+
+    <!-- ── SCRIPTS ── -->
+    <section id="scripts">
+        <div class="section-header reveal">
+            <div class="section-label">01</div>
+            <div class="section-title">Scripts</div>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="cards-grid" id="cards-grid">
+            <!-- Cards injected by pentium.js -->
+        </div>
+    </section>
+
+    <!-- ── TERMINAL ── -->
+    <section id="terminal">
+        <div class="section-header reveal">
+            <div class="section-label">02</div>
+            <div class="section-title">Live Terminal</div>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="terminal-layout reveal">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-dot red"></div>
+                    <div class="terminal-dot yellow"></div>
+                    <div class="terminal-dot green"></div>
+                    <div class="terminal-title">user@pentium ~ python3</div>
+                </div>
+                <div class="terminal-body" id="term-body">
+                    <!-- Animated by pentium.js -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-logo">PENT<span>IUM</span></div>
+        <div class="footer-copy">© 2025 Pentium — Python Backend Systems</div>
+    </footer>
+
+    <script src="../assets/pentium.js"></script>
+</body>
+
+</html>

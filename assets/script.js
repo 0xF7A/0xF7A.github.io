@@ -212,3 +212,76 @@ function draw() {
   requestAnimationFrame(draw);
 }
 draw();
+
+// ── Boot Sequence ────────────────────────────────────────────────────────
+const bootScreen = document.getElementById('boot-screen');
+const bootText = document.getElementById('boot-text');
+
+if (bootScreen && bootText) {
+  const bootLines = [
+    "[    0.000000] Incoming GET request from 127.0.0.1",
+    "[    0.000000] Initializing connection protocol...",
+    "[    0.001021] Handshake complete.",
+    "[    0.001833] Resolving host configuration...",
+    "[    0.002241] Loading File: hypr/index.html",
+    "[    0.004213] Loading File: hypr/assets/script.js",
+    "[    0.008412] Loading File: hypr/assets/style.css",
+    "[    0.012542] Loading File: hypr/assets/*",
+    "[    0.018231] Initializing style.css",
+    "[    0.021034] Parsing stylesheet rules... OK",
+    "[    0.034125] Initializing DOM structure...",
+    "[    0.082143] Initializing html renderer",
+    "[    0.091234] Constructing render tree...",
+    "[    0.104251] Creating secure protocol",
+    "[    0.108231] Establishing zero-trust execution environment...",
+    "[    0.112423] [WARN] Memory Leak Detected",
+    "[    0.115421] Initiating garbage collection sequence...",
+    "[    0.118423] Resetting memory pool",
+    "[    0.124512] Reset done.",
+    "[    0.134231] Mounting virtual file system...",
+    "[    0.145123] Injecting core dependencies...",
+    "[    0.155231] Initializing obfuscator",
+    "[    0.162341] Obfuscator seed generated: 0x8F9A2C",
+    "[    0.170412] Loading scripts database...",
+    "[    0.180231] Request GET to /assets/script.json",
+    "[    0.185234] Parsing script definitions...",
+    "[    0.188214] Loaded 12 scripts into memory.",
+    "[    0.192341] Mounting window",
+    "[    0.198321] Rendering user interface...",
+    "[    0.205121] Connection established.",
+  ];
+
+  let lineIdx = 0;
+
+  document.body.style.overflow = 'hidden';
+  window.scrollTo(0, 0);
+
+  function showLine() {
+    if (lineIdx >= bootLines.length) {
+      setTimeout(() => {
+        bootScreen.classList.add('hidden');
+        document.body.style.overflow = '';
+      }, 300);
+      return;
+    }
+
+    const currentLine = bootLines[lineIdx];
+    const lineDiv = document.createElement('div');
+    lineDiv.className = 'boot-line';
+    lineDiv.textContent = currentLine;
+    bootText.appendChild(lineDiv);
+
+    lineIdx++;
+
+    let delay = Math.random() * 40 + 10;
+    const lowerLine = currentLine.toLowerCase();
+    if (lowerLine.includes("initializing") || lowerLine.includes("loading") || lowerLine.includes("request")) {
+      delay = 150;
+    } else if (lowerLine.includes("established.")) {
+      delay = 400;
+    }
+    setTimeout(showLine, delay);
+  }
+
+  setTimeout(showLine, 100);
+}

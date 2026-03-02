@@ -1213,3 +1213,59 @@
             border-color: var(--blue);
             color: var(--blue);
         }
+
+        /* ════════════════════════════════
+   BOOT SEQUENCE
+════════════════════════════════ */
+        #boot-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: #050505;
+            color: var(--accent);
+            font-family: var(--mono);
+            padding: 48px;
+            display: flex;
+            align-items: flex-end;
+            pointer-events: all;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        #boot-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        #boot-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            width: 100%;
+        }
+
+        .boot-line {
+            font-size: 13px;
+            letter-spacing: 0.08em;
+            text-shadow: 0 0 8px rgba(255, 107, 43, 0.4);
+        }
+
+        .boot-input-line {
+            display: flex;
+            align-items: center;
+            margin-top: 6px;
+        }
+
+        .boot-cursor {
+            width: 8px;
+            height: 15px;
+            background: var(--accent);
+            box-shadow: 0 0 8px var(--accent);
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
