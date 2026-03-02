@@ -452,4 +452,16 @@
         requestAnimationFrame(animate);
     }
 
+    // ── Fix bfcache (back button) bug ──
+    window.addEventListener('pageshow', (e) => {
+        if (e.persisted) {
+            // Page was restored from bfcache — reset state
+            navigating = false;
+            progressFill.style.width = '0%';
+            bootOverlay.classList.add('hidden');
+            document.body.style.overflow = '';
+            startIdleProgress();
+        }
+    });
+
 })();

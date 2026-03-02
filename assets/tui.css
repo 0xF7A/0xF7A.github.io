@@ -37,6 +37,8 @@ html {
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 /* CRT scanline overlay */
